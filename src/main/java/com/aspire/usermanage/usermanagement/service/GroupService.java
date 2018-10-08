@@ -1,12 +1,15 @@
 package com.aspire.usermanage.usermanagement.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.aspire.usermanage.usermanagement.modal.Group;
 import com.aspire.usermanage.usermanagement.repository.GroupRepository;
 
+@Service
 public class GroupService {
 	
 	@Autowired
@@ -25,9 +28,10 @@ public class GroupService {
 	}
 
 
-	public Group getGroup(Long groupId ) {
+	public Optional<Group> getGroup(Long groupId ) {
 		// TODO Auto-generated method stub
-		return groupRepository.getOne(groupId);
+		//return groupRepository.getOne(groupId);
+		return groupRepository.findById(groupId);
 	}
 
 
@@ -39,8 +43,8 @@ public class GroupService {
 
 
 	public boolean deleteGroup(Long groupId) {
-		Group group=groupRepository.getOne(groupId);
-		 groupRepository.delete(group);
+		
+		 groupRepository.deleteById(groupId);
 		return true;
 		 
 	}

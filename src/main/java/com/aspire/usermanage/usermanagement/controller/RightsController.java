@@ -1,6 +1,7 @@
 package com.aspire.usermanage.usermanagement.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -35,7 +36,7 @@ public class RightsController {
 	}
 	
 	@GetMapping("/{rightsId}")
-	public Rights getRights(@PathVariable (value = "rightsId") Long rightsId) {
+	public Optional<Rights> getRights(@PathVariable (value = "rightsId") Long rightsId) {
 		return rightsService.getRights(rightsId);
 	}
 	

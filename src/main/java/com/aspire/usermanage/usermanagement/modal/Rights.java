@@ -8,9 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@Entity
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
+//@Entity
 @Table(name = "rights")
+@Configurable
 public class Rights {
+	
 	@Id
 	@Column(name = "rights_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)

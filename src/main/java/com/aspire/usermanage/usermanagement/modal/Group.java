@@ -1,6 +1,6 @@
 package com.aspire.usermanage.usermanagement.modal;
 
-import java.util.List;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,22 +10,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
 
-@Entity
+@Document
+//@Entity
 @Table(name="groups")
+@Configurable
 public class Group {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="group_id")
 	private int groupId;
+	
 	@NotNull
 	@Size(max = 100)
 	@Column(unique = true)

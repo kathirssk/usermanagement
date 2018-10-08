@@ -1,12 +1,14 @@
 package com.aspire.usermanage.usermanagement.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,17 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aspire.usermanage.usermanagement.modal.Group;
-import com.aspire.usermanage.usermanagement.modal.Rights;
 import com.aspire.usermanage.usermanagement.service.GroupService;
 
 @RestController
 @RequestMapping("/group")
+@Component
 public class GroupController {
 	
 	@Autowired
 	Group group;
-	@Autowired
-	Rights rights;
+
 	
 	GroupService groupService;
 	
@@ -39,7 +40,7 @@ public class GroupController {
 	}
 	
 	@GetMapping("/{groupId}")
-	public Group getGroup(@PathVariable(value = "groupId") Long groupId) {
+	public Optional<Group> getGroup(@PathVariable(value = "groupId") Long groupId) {
 		return groupService.getGroup(groupId);
 		
 	}

@@ -1,12 +1,15 @@
 package com.aspire.usermanage.usermanagement.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.aspire.usermanage.usermanagement.modal.User;
 import com.aspire.usermanage.usermanagement.repository.UserRepository;
 
+@Service
 public class UserService {
 	@Autowired
 	UserRepository userRepository;
@@ -17,8 +20,8 @@ public class UserService {
 		
 	}
 	
-	public User getUser(Long userId) {
-		return userRepository.getOne(userId);
+	public Optional<User> getUser(Long userId) {
+		return userRepository.findById(userId);
 	}
 	public boolean addUser(User user) {
 		userRepository.save(user);
@@ -26,8 +29,7 @@ public class UserService {
 		
 	}
 	public boolean deleteUser(long userId) {
-		User user=userRepository.getOne(userId);
-		userRepository.delete(user);
+		userRepository.deleteById(userId);
 		return true;
 		
 	}

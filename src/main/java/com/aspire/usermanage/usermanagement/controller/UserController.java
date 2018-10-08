@@ -1,6 +1,7 @@
 package com.aspire.usermanage.usermanagement.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,19 +29,19 @@ public class UserController {
 		
 	}
 	@GetMapping(value="/{userId}")
-	public User getUser(@PathVariable(value = "userId") Long userId){
+	public Optional<User> getUser(@PathVariable(value = "userId") Long userId){
 		
 		return userService.getUser(userId);
 	}
 	@PostMapping(value="{user}")
-	public User addUser() {
-				
-		return user;
+	public boolean addUser() {
+			
+		return userService.addUser(user);
 		
 	}
-	@DeleteMapping(value="{user}")
-	public User deleteUser() {
-		return user;
+	@DeleteMapping(value="/{userId}")
+	public boolean deleteUser(@PathVariable(value = "userId") Long userId) {
+		return userService.deleteUser(userId);
 		
 	}
 }

@@ -1,12 +1,15 @@
 package com.aspire.usermanage.usermanagement.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.aspire.usermanage.usermanagement.modal.Rights;
 import com.aspire.usermanage.usermanagement.repository.RightsRepository;
 
+@Service
 public class RightsService {
 	@Autowired
 	RightsRepository rightsRepository;
@@ -21,8 +24,7 @@ public class RightsService {
 	}
 
 	public boolean deleteRights(long rightsId) {
-		Rights rights = rightsRepository.getOne(rightsId);
-		rightsRepository.delete(rights);
+		rightsRepository.deleteById(rightsId);
 		return true;
 	}
 
@@ -31,8 +33,8 @@ public class RightsService {
 		return rightsRepository.save(rights);
 	}
 
-	public Rights getRights(Long rightsId) {
-		return rightsRepository.getOne(rightsId);
+	public Optional<Rights> getRights(Long rightsId) {
+		return rightsRepository.findById(rightsId);
 	}
 
 }

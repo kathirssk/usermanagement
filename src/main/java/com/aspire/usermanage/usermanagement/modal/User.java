@@ -8,18 +8,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
+//@Entity
 @Table(name="users")
+@Configurable
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "user_Id")
 	private int userId;
 	
 	@NotNull
@@ -62,4 +69,7 @@ public class User {
             cascade =  CascadeType.ALL)
 	@JoinColumn(name = "userId", nullable = false, insertable=false, updatable=false )
 	private Group group;
+	
+	@OneToMany
+	private Rights rights;
 }
