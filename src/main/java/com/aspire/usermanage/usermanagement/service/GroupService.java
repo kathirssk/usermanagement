@@ -8,32 +8,53 @@ import org.springframework.stereotype.Service;
 
 import com.aspire.usermanage.usermanagement.modal.Group;
 import com.aspire.usermanage.usermanagement.repository.GroupRepository;
-
+/**
+ * 
+ * It has all the Business and DAO functionality of Group
+ * 
+ * @author kathiravan.sethurama
+ *
+ */
 @Service
-public class GroupService {
+public class GroupService extends BaseService{
 	
 	@Autowired
 	GroupRepository groupRepository;
 	
-	
+	/**
+	 * this method uses mongorepository to fetch all group detail
+	 * @return list of group
+	 */
 	public List<Group> getAllGroups() {
 		
 		return groupRepository.findAll();
 	}
 
-
+	/**
+	 * method uses mongo repository to save one group object into mongodb
+	 * @param group
+	 * @return
+	 */
 	public Group addGroup(Group group) {
 		
 		return groupRepository.save(group);
 	}
 
-
-	public Optional<Group> getGroup(Long groupId ) {
-		// TODO Auto-generated method stub
-		//return groupRepository.getOne(groupId);
+	/**
+	 * method uses mongorepository fetch one particular group
+	 * @param groupId
+	 * @return
+	 */
+	public Optional<Group> getGroup(int groupId ) {
 		return groupRepository.findById(groupId);
 	}
 
+	/**
+	 * to update group
+	 * @param groupId
+	 * @param group
+	 * @return
+	 */
 
 	public Group updateGroup(int groupId, Group group) {
 		
@@ -41,8 +62,13 @@ public class GroupService {
 		return groupRepository.save(group) ;
 	}
 
-
-	public boolean deleteGroup(Long groupId) {
+	/**
+	 * 
+	 * to delete group
+	 * @param groupId
+	 * @return
+	 */
+	public boolean deleteGroup(int groupId) {
 		
 		 groupRepository.deleteById(groupId);
 		return true;
