@@ -3,11 +3,12 @@ package com.aspire.usermanage.usermanagement.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.aspire.usermanage.usermanagement.modal.Group;
-import com.aspire.usermanage.usermanagement.repository.GroupRepository;
+import com.aspire.usermanage.usermanagement.modal.Rights;
+
 /**
  * 
  * It has all the Business and DAO functionality of Group
@@ -18,8 +19,6 @@ import com.aspire.usermanage.usermanagement.repository.GroupRepository;
 @Service
 public class GroupService extends BaseService{
 	
-	@Autowired
-	GroupRepository groupRepository;
 	
 	/**
 	 * this method uses mongorepository to fetch all group detail
@@ -36,7 +35,8 @@ public class GroupService extends BaseService{
 	 * @return
 	 */
 	public Group addGroup(Group group) {
-		
+		Rights rights=group.getRights();
+		rightsService.addRights(rights);
 		return groupRepository.save(group);
 	}
 
