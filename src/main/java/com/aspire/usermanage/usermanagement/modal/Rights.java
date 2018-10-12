@@ -1,22 +1,24 @@
 package com.aspire.usermanage.usermanagement.modal;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "rights")
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+/**
+ * Rights Entity class
+ * 
+ * @author kathiravan.sethurama
+ *
+ */
+@Document(collection="rights")
+@Configuration
 public class Rights {
-	@Id
-	@Column(name = "rights_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
+	@Id 
 	private int rightsId;
 	@NotNull
-	@Column(unique = true)
 	private String rightsName;
 
 	public int getRightsId() {

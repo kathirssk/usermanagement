@@ -1,6 +1,8 @@
 package com.aspire.usermanage.usermanagement.controller;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -20,6 +22,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aspire.usermanage.usermanagement.modal.Rights;
 import com.aspire.usermanage.usermanagement.service.RightsService;
 
+
+/**
+ * Rights Controller 
+ * 
+ * It is a controller class for RIGHTS table
+ * 
+ * 
+ * @author kathiravan.sethurama
+ *
+ */
 @RestController
 @RequestMapping("/right")
 public class RightsController {
@@ -27,36 +39,66 @@ public class RightsController {
 	@Autowired
 	Rights rights;
 	
+	@Autowired
 	RightsService rightsService;
 	
-	@GetMapping("/rightslist")
+	
+	private static final Logger LOG =Logger.getLogger(RightsController.class.getName());
+	
+	/**
+	 * To fetch all rights
+	 * @return
+	 */
+	@GetMapping("/allRights")
 	public List<Rights> getAllRights(){
+		LOG.info("Entered into getallrights method");
 		return rightsService.getAllRights();
 	}
-	
+	/**
+	 * To fetch one Rights detail by rightsId
+	 * @param rightsId
+	 * @return
+	 */
 	@GetMapping("/{rightsId}")
-	public Rights getRights(@PathVariable (value = "rightsId") Long rightsId) {
+	public Optional<Rights> getRights(@PathVariable (value = "rightsId") int rightsId) {
+		LOG.info("Entered into getRights method");
 		return rightsService.getRights(rightsId);
 	}
 	
-	
-	@PostMapping("rights")
+	/**
+	 * to save one rights to DB
+	 * @param rights
+	 * @return
+	 */
+	@PostMapping("addRights")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@ResponseBody
 	public Rights addRights(@RequestBody Rights rights ) {
+		LOG.info("Entered into addRights method");
 		return rightsService.addRights(rights);
 	}
 	
-	
+	/**
+	 * To delete one rights by rightsId
+	 * @param rightsId
+	 * @return
+	 */
 	@DeleteMapping("/delete/{rightsId}")
-	public boolean deleteRights(@PathVariable (value = "rightsId") Long rightsId) {
+	public boolean deleteRights(@PathVariable (value = "rightsId") int rightsId) {
+		LOG.info("Entered into deleteRights method");
 		return rightsService.deleteRights(rightsId);
 	}
 	
+	/**
+	 * To update one rights by rightsID
+	 * @param rights
+	 * @return
+	 */
 	@PutMapping("/change/{rights}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	public Rights updateRights(@RequestBody Rights rights) {
+		LOG.info("Entered into updateRights method");
 		int rightsId=rights.getRightsId();
 		return rightsService.updateRights(rightsId,rights);
 		

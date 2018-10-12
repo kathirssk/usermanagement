@@ -1,34 +1,34 @@
 package com.aspire.usermanage.usermanagement.modal;
 
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
-
-
-@Entity
-@Table(name="groups")
+/**
+ * GROUP Entity class
+ * 
+ * 
+ * 
+ * @author kathiravan.sethurama
+ *
+ */
+@Document(collection="group")
+@Configuration
 public class Group {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	
+	@Id 
 	private int groupId;
+	
 	@NotNull
 	@Size(max = 100)
-	@Column(unique = true)
 	private String groupName;
 	
 	
@@ -47,14 +47,19 @@ public class Group {
 		this.groupName = groupName;
 	}
 	
-	
-//	@OneToOne(cascade=CascadeType.ALL)
-//	@JoinColumn(name="groupId", referencedColumnName="userId") 
-//	private User user;
-		
-	@OneToOne(fetch = FetchType.LAZY,cascade =  CascadeType.ALL)
-	@JoinColumn(name="groupId",  nullable=false,insertable=false, updatable=false)
+	// DBRef is for entity reference which tells this entity associated with some other entity
+	@DBRef
 	private Rights rights;
+
+
+
+	public Rights getRights() {
+		return rights;
+	}
+
+	public void setRights(Rights rights) {
+		this.rights = rights;
+	}
 
 
 	

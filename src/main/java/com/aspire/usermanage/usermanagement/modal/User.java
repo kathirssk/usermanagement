@@ -1,25 +1,27 @@
 package com.aspire.usermanage.usermanagement.modal;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
-@Table(name="users")
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+/**
+ * User Entity class 
+ * 
+ * @author kathiravan.sethurama
+ *
+ */
+@Document(collection="user")
+@Configuration
 public class User {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id 
 	private int userId;
 	
 	@NotNull
@@ -33,7 +35,7 @@ public class User {
 	@NotNull
     @Email
     @Size(max = 100)
-    @Column(unique = true)
+   
     private String userEmail;
 
 	
@@ -58,8 +60,14 @@ public class User {
 	}
 
 	
-	@OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL)
-	@JoinColumn(name = "userId", nullable = false, insertable=false, updatable=false )
-	private Group group;
+
+	
+	// DBRef is for entity reference which tells this entity associated with some other entity
+	@DBRef
+	private Group groups;
+
+
+
+	
+
 }
