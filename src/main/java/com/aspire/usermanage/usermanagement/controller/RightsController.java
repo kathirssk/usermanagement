@@ -2,6 +2,7 @@ package com.aspire.usermanage.usermanagement.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -41,13 +42,16 @@ public class RightsController {
 	@Autowired
 	RightsService rightsService;
 	
+	
+	private static final Logger LOG =Logger.getLogger(RightsController.class.getName());
+	
 	/**
 	 * To fetch all rights
 	 * @return
 	 */
 	@GetMapping("/allRights")
 	public List<Rights> getAllRights(){
-		
+		LOG.info("Entered into getallrights method");
 		return rightsService.getAllRights();
 	}
 	/**
@@ -57,6 +61,7 @@ public class RightsController {
 	 */
 	@GetMapping("/{rightsId}")
 	public Optional<Rights> getRights(@PathVariable (value = "rightsId") int rightsId) {
+		LOG.info("Entered into getRights method");
 		return rightsService.getRights(rightsId);
 	}
 	
@@ -70,6 +75,7 @@ public class RightsController {
 	@Produces({ MediaType.APPLICATION_JSON })
 	@ResponseBody
 	public Rights addRights(@RequestBody Rights rights ) {
+		LOG.info("Entered into addRights method");
 		return rightsService.addRights(rights);
 	}
 	
@@ -80,6 +86,7 @@ public class RightsController {
 	 */
 	@DeleteMapping("/delete/{rightsId}")
 	public boolean deleteRights(@PathVariable (value = "rightsId") int rightsId) {
+		LOG.info("Entered into deleteRights method");
 		return rightsService.deleteRights(rightsId);
 	}
 	
@@ -91,6 +98,7 @@ public class RightsController {
 	@PutMapping("/change/{rights}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	public Rights updateRights(@RequestBody Rights rights) {
+		LOG.info("Entered into updateRights method");
 		int rightsId=rights.getRightsId();
 		return rightsService.updateRights(rightsId,rights);
 		

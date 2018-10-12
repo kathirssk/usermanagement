@@ -2,6 +2,7 @@ package com.aspire.usermanage.usermanagement.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +31,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-
+	
+	private static final Logger LOG =Logger.getLogger(UserController.class.getName());
+	
 	/**
 	 * To fetch all users
 	 * 
@@ -38,7 +41,7 @@ public class UserController {
 	 */
 	@GetMapping(value = "/allUsers")
 	public List<User> getAllUsers() {
-
+		LOG.info("Entered into getAllUsers method");
 		return userService.getAllUsers();
 
 	}
@@ -51,7 +54,7 @@ public class UserController {
 	 */
 	@GetMapping(value = "/{userId}")
 	public Optional<User> getUser(@PathVariable(value = "userId") int userId) {
-
+		LOG.info("Entered into getUser method");
 		return userService.getUser(userId);
 	}
 
@@ -64,6 +67,7 @@ public class UserController {
 	 */
 	@PostMapping("user")
 	public boolean addUser(@RequestBody User user) {
+		LOG.info("Entered into addUser method");
 		return userService.addUser(user);
 
 	}
@@ -75,6 +79,7 @@ public class UserController {
 	 */
 	@DeleteMapping(value="/{userId}")
 	public boolean deleteUser(@PathVariable(value = "userId") int userId) {
+		LOG.info("Entered into deleteUser method");
 		return userService.deleteUser(userId);
 	}
 	
@@ -84,6 +89,7 @@ public class UserController {
 	 */
 	@PutMapping("/change/{userId}")
 	public boolean updateUser(@PathVariable(value = "userId")int userId,@RequestBody User user) {
+		LOG.info("Entered into updateUser method");
 		return userService.updateUser(userId,user);
 	}
 }

@@ -2,6 +2,7 @@ package com.aspire.usermanage.usermanagement.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -43,13 +44,17 @@ public class GroupController {
 	@Autowired
 	GroupService groupService;
 	
+	private static final Logger LOG =Logger.getLogger(GroupController.class.getName());
+	
 	/**
 	 * used to fetch all groups
 	 * @return list of groups
 	 */
+	
 	@GetMapping("/allGroups")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Group> getAllGroups() {
+		LOG.info("Entered into Getall groups method");
 		return groupService.getAllGroups();
 		
 	}
@@ -61,6 +66,7 @@ public class GroupController {
 	 */
 	@GetMapping("/{groupId}")
 	public Optional<Group> getGroup(@PathVariable(value = "groupId") int groupId) {
+		LOG.info("Entered into getGroup method");
 		return groupService.getGroup(groupId);
 		
 	}
@@ -74,6 +80,7 @@ public class GroupController {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Group addGroup(@RequestBody Group group ) {
+		LOG.info("entered into addgroup method");
 		return groupService.addGroup(group);
 	}
 	
@@ -86,6 +93,7 @@ public class GroupController {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	public Group updateGroup(@RequestBody Group group ) {
 		int groupId=group.getGroupId();
+		LOG.info("entered into updateGroup method");
 		return groupService.updateGroup(groupId, group);
 		
 	}
@@ -96,6 +104,7 @@ public class GroupController {
 	 */
 	@DeleteMapping("/delete/{groupId}")
 	public boolean deleteGroup(@PathVariable (value = "groupId") int groupId) {
+		LOG.info("entered into deleteGroup method");
 		return groupService.deleteGroup(groupId);
 	}
 }
